@@ -13,15 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.ypolanco.bowlingpal.util;
+package edu.ypolanco.bowlingpal.service.scorerule.tenpin.calculator;
+
+import edu.ypolanco.bowlingpal.model.Frame;
+import static edu.ypolanco.bowlingpal.util.BowlingUtil.getShootPoints;
+import java.util.List;
 
 /**
  *
  * @author Yumarx <jumarpolanco@gmail.com>
  */
-public class NoParserFoundException extends Exception {
+public class SpareScoreCalculator implements ScoreCalculator{
 
-    public NoParserFoundException() {
+    @Override
+    public int calculate(int index, List<Frame> frames) {
+        int thisShoot = getShootPoints(frames.get(index).getShoots().get(0));
+        int secondShoot = getShootPoints(frames.get(index).getShoots().get(1));
+        int thirdShoot = getShootPoints(frames.get(index + 1).getShoots().get(0));
+        return thisShoot + secondShoot + thirdShoot;
     }
     
 }

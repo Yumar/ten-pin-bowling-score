@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.ypolanco.bowlingpal.service.scoreparser;
+package edu.ypolanco.bowlingpal.service.scorerule;
 
 import edu.ypolanco.bowlingpal.model.Lane;
 import edu.ypolanco.bowlingpal.util.exception.InvalidScoreException;
@@ -24,8 +24,7 @@ import java.util.Map;
  *
  * @author Yumarx <jumarpolanco@gmail.com>
  */
-public interface ScoreParser<T> {
-     public Map<String, List<String>> parseScore(T source) throws InvalidScoreException;
-     public void setSource(T source);
-     public Map<String, List<String>> parseScore() throws InvalidScoreException;
+public interface BowlingScoreRule {
+    public int getNumberOfPins();
+    public List<Lane> applyRule(Map<String, List<String>> score) throws InvalidScoreException;
 }

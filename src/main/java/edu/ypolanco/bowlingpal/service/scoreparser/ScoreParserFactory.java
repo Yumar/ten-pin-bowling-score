@@ -18,7 +18,7 @@ package edu.ypolanco.bowlingpal.service.scoreparser;
 import edu.ypolanco.bowlingpal.service.scoreparser.file.FileScoreParser;
 import edu.ypolanco.bowlingpal.service.scoreparser.file.FileScoreParserImpl;
 import edu.ypolanco.bowlingpal.service.scoreparser.string.StringScoreParser;
-import edu.ypolanco.bowlingpal.util.NoParserFoundException;
+import edu.ypolanco.bowlingpal.util.exception.NoParserFoundException;
 import edu.ypolanco.bowlingpal.service.scoreparser.string.StringScoreParserImpl;
 import java.io.File;
 

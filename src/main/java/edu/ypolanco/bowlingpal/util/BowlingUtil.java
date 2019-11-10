@@ -27,4 +27,13 @@ public class BowlingUtil {
         return false;
     }
     
+    public static int getShootPoints(String shoot) {
+        if (shoot.equals("F")) {
+            return 0;
+        } else {
+            return Integer.parseInt(shoot);
+        }
+
+    }
+    
 }

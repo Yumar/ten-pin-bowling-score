@@ -13,15 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.ypolanco.bowlingpal.util;
+package edu.ypolanco.bowlingpal.service.scorerule.tenpin.calculator;
+
+import edu.ypolanco.bowlingpal.model.Frame;
+import static edu.ypolanco.bowlingpal.util.BowlingUtil.getShootPoints;
+import java.util.List;
 
 /**
  *
  * @author Yumarx <jumarpolanco@gmail.com>
  */
-public class InvalidScoreException extends Exception {
+public class OpenScoreCalculator implements ScoreCalculator{
 
-    public InvalidScoreException(String score_format_is_invalid) {
-    }
+    @Override
+    public int calculate(int index, List<Frame> frames) {
+        return getShootPoints(frames.get(index).getShoots().get(0));
+    } 
     
 }

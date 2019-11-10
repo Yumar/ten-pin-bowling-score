@@ -29,8 +29,9 @@ public class Frame {
         SPARE,
         OPEN
     }
-    private List<Integer> shoots;
+    private List<String> shoots;
     private Integer totalScore;
+    private Type frameType;
     
     
     
