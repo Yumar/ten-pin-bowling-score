@@ -34,6 +34,7 @@ import java.util.Map;
  * @author Yumarx <jumarpolanco@gmail.com>
  */
 public class TenPinBowlingRule implements BowlingScoreRule {
+
     public static final int NUMBER_OF_PINS = 10;
 
     @Override
@@ -42,13 +43,18 @@ public class TenPinBowlingRule implements BowlingScoreRule {
     }
 
     @Override
-    public List<Lane> applyRule(Map<String, List<String>> score) throws InvalidScoreException{
+    public List<Lane> applyRule(Map<String, List<String>> score) throws InvalidScoreException {
         List<Lane> lanes = new ArrayList<>();
 
         score.forEach((k, v) -> {
-            Lane lane = new Lane();
-            lane.setPlayerName(k);
-            lane.setFrames(calculateTotals(calculateShoots(v)));
+            try {
+                Lane lane = new Lane();
+                lane.setPlayerName(k);
+                lane.setFrames(calculateTotals(calculateShoots(v)));
+                lanes.add(lane);
+            } catch (InvalidScoreException ex) {
+                throw new RuntimeException(ex);
+            }
         });
 
         return lanes;
@@ -56,22 +62,21 @@ public class TenPinBowlingRule implements BowlingScoreRule {
 
     private List<Frame> calculateShoots(List<String> stringList) throws InvalidScoreException {
         List<Frame> frames = new ArrayList<>();
-        for (int i = 0; i < stringList.size(); i = i + 2) {
+        for (int i = 0; stringList.size() > i + 1; i = i + 2) {
             Frame frame = new Frame();
-            List<String> shoots = new ArrayList<>();
-            if (i == stringList.size() - 3 && stringList.get(i).equals(getNumberOfPins())) { //verifies if is the last frame
-                if (validateShoot(stringList.get(i)) && validateShoot(stringList.get(i + 1)) && validateShoot(stringList.get(i + 2))) {
-                    shoots.add(stringList.get(i));
-                    shoots.add(stringList.get(i + 1));
-                    shoots.add(stringList.get(i + 2));
-                    frame.setShoots(shoots);
-                }
-            }
-            if (validateShoot(stringList.get(i)) && validateShoot(stringList.get(i + 1))) {
+            List<String> shoots = new ArrayList<>();//validate strike doesnt have second shoot
+            if (validateShoot(stringList.get(i)) && 
+                    ("F".equals(stringList.get(i)) || 
+                    Integer.parseInt(stringList.get(i)) == getNumberOfPins())) 
+            { //verifies if is the last frame
+                shoots.add(stringList.get(i));
+                frame.setShoots(shoots);
+            } else if (validateShoot(stringList.get(i)) && validateShoot(stringList.get(i + 1))) {
                 shoots.add(stringList.get(i));
                 shoots.add(stringList.get(i + 1));
                 frame.setShoots(shoots);
             }
+            frames.add(frame);
         }
         return frames;
     }
@@ -90,14 +95,14 @@ public class TenPinBowlingRule implements BowlingScoreRule {
         for (int i = 0; i < frames.size(); i++) {
             ScoreCalculator calculator = null;
             int thisShoot = getShootPoints(frames.get(i).getShoots().get(0));
-            int secondShoot = getShootPoints(frames.get(i).getShoots().get(1));
+            int secondShoot = frames.get(i).getShoots().size() > 1?  getShootPoints(frames.get(i).getShoots().get(1)) : 0;
             if (thisShoot == getNumberOfPins()) {
                 frames.get(i).setFrameType(Frame.Type.STRIKE);
                 calculator = new StrikeScoreCalculator();
             } else if ((thisShoot + secondShoot) == getNumberOfPins()) {
                 frames.get(i).setFrameType(Frame.Type.SPARE);
                 calculator = new SpareScoreCalculator();
-            } else if(secondShoot == 0){
+            } else if (secondShoot == 0) {
                 frames.get(i).setFrameType(Frame.Type.OPEN);
                 calculator = new OpenScoreCalculator();
             } else {
@@ -107,7 +112,5 @@ public class TenPinBowlingRule implements BowlingScoreRule {
         }
         return frames;
     }
-
-    
 
 }

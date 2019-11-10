@@ -28,10 +28,11 @@ public class StrikeScoreCalculator implements ScoreCalculator {
     @Override
     public int calculate(int index, List<Frame> frames) { //TODO: check this algorithm
         int thisShoot = getShootPoints(frames.get(index).getShoots().get(0));
-        if(index == frames.size()){
+        if ((index+1) < frames.size()) {
+            return thisShoot + calculate(index + 1, frames);            
+        } else {
             return thisShoot;
         }
-        return thisShoot + calculate(index + 1, frames);
     }
 
 }
