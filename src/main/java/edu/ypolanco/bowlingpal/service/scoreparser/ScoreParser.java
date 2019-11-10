@@ -16,7 +16,7 @@
 package edu.ypolanco.bowlingpal.service.scoreparser;
 
 import edu.ypolanco.bowlingpal.model.Lane;
-import edu.ypolanco.bowlingpal.util.InvalidScoreException;
+import edu.ypolanco.bowlingpal.util.exception.InvalidScoreException;
 import java.util.List;
 import java.util.Map;
 

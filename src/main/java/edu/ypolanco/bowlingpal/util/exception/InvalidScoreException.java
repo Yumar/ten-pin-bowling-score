@@ -13,15 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.ypolanco.bowlingpal.util;
+package edu.ypolanco.bowlingpal.util.exception;
 
 /**
  *
  * @author Yumarx <jumarpolanco@gmail.com>
  */
-public class NoParserFoundException extends Exception {
+public class InvalidScoreException extends Exception {
 
-    public NoParserFoundException() {
+    public InvalidScoreException(String score_format_is_invalid) {
     }
     
 }

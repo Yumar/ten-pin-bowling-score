@@ -16,7 +16,7 @@
 package edu.ypolanco.bowlingpal.service.scoreparser.file;
 
 import com.sun.javafx.scene.control.skin.VirtualFlow;
-import edu.ypolanco.bowlingpal.util.InvalidScoreException;
+import edu.ypolanco.bowlingpal.util.exception.InvalidScoreException;
 import edu.ypolanco.bowlingpal.util.BowlingUtil;
 import java.io.BufferedReader;
 import java.io.File;

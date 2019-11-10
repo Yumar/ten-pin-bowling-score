@@ -13,15 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.ypolanco.bowlingpal.util;
+package edu.ypolanco.bowlingpal.service.scorerule;
+
+import edu.ypolanco.bowlingpal.model.Lane;
+import java.util.List;
+import java.util.Map;
 
 /**
  *
  * @author Yumarx <jumarpolanco@gmail.com>
  */
-public class InvalidScoreException extends Exception {
-
-    public InvalidScoreException(String score_format_is_invalid) {
-    }
-    
+public interface BowlingScoreRule {
+    public int getNumberOfPins();
+    public List<Lane> applyRule(Map<String, List<String>> score);
 }

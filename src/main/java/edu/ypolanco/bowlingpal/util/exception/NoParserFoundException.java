@@ -13,19 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.ypolanco.bowlingpal;
+package edu.ypolanco.bowlingpal.util.exception;
 
 /**
  *
  * @author Yumarx <jumarpolanco@gmail.com>
  */
-public class App {
+public class NoParserFoundException extends Exception {
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
+    public NoParserFoundException() {
     }
     
 }

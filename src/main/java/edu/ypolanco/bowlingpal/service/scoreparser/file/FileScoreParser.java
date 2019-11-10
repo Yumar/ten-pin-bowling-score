@@ -16,7 +16,7 @@
 package edu.ypolanco.bowlingpal.service.scoreparser.file;
 
 import edu.ypolanco.bowlingpal.service.scoreparser.ScoreParser;
-import edu.ypolanco.bowlingpal.util.InvalidScoreException;
+import edu.ypolanco.bowlingpal.util.exception.InvalidScoreException;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
