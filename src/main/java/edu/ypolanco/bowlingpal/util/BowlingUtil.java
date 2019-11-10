@@ -13,19 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.ypolanco.bowlingpal.service.scoreparser;
-
-import edu.ypolanco.bowlingpal.model.Lane;
-import edu.ypolanco.bowlingpal.util.InvalidScoreException;
-import java.util.List;
-import java.util.Map;
+package edu.ypolanco.bowlingpal.util;
 
 /**
  *
  * @author Yumarx <jumarpolanco@gmail.com>
  */
-public interface ScoreParser<T> {
-     public Map<String, List<String>> parseScore(T source) throws InvalidScoreException;
-     public void setSource(T source);
-     public Map<String, List<String>> paseScore() throws InvalidScoreException;
+public class BowlingUtil {
+    public static boolean isValidScore(String score){
+        if(score!=null && !score.isEmpty()){
+            if(score.equalsIgnoreCase("F") || score.matches("^[0-9]+$")) return true;
+        }
+        return false;
+    }
+    
 }

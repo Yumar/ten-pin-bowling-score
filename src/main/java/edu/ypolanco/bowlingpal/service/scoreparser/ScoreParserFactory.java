@@ -15,9 +15,12 @@
  */
 package edu.ypolanco.bowlingpal.service.scoreparser;
 
+import edu.ypolanco.bowlingpal.service.scoreparser.file.FileScoreParser;
+import edu.ypolanco.bowlingpal.service.scoreparser.file.FileScoreParserImpl;
 import edu.ypolanco.bowlingpal.service.scoreparser.string.StringScoreParser;
 import edu.ypolanco.bowlingpal.util.NoParserFoundException;
 import edu.ypolanco.bowlingpal.service.scoreparser.string.StringScoreParserImpl;
+import java.io.File;
 
 /**
  *
@@ -28,12 +31,18 @@ public class ScoreParserFactory {
     public ScoreParser createScoreParser(Object source) throws NoParserFoundException{
         if(source instanceof String){
             return createSringScoreParser((String) source);
-        }else{
+        } else if(source instanceof File){
+            return createFileScoreParser((File) source);
+        } else{
             throw new NoParserFoundException();
         }
     }
     
     private StringScoreParser createSringScoreParser(String source){
         return new StringScoreParserImpl(source);
+    }
+    
+    private FileScoreParser createFileScoreParser(File source){
+        return new FileScoreParserImpl(source);
     }
 }

@@ -13,10 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.ypolanco.bowlingpal.service.scoreparser;
+package edu.ypolanco.bowlingpal.service.scoreparser.file;
 
-import edu.ypolanco.bowlingpal.model.Lane;
+import edu.ypolanco.bowlingpal.service.scoreparser.ScoreParser;
 import edu.ypolanco.bowlingpal.util.InvalidScoreException;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -24,8 +27,7 @@ import java.util.Map;
  *
  * @author Yumarx <jumarpolanco@gmail.com>
  */
-public interface ScoreParser<T> {
-     public Map<String, List<String>> parseScore(T source) throws InvalidScoreException;
-     public void setSource(T source);
-     public Map<String, List<String>> paseScore() throws InvalidScoreException;
+public interface FileScoreParser extends ScoreParser<File>{
+    public Map<String, List<String>> readLines(BufferedReader reader) throws IOException, InvalidScoreException;
+    
 }

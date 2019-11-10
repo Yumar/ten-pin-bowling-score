@@ -16,20 +16,22 @@
 package edu.ypolanco.bowlingpal.service.scoreparser.string;
 
 import edu.ypolanco.bowlingpal.model.Lane;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import lombok.AllArgsConstructor;
 
 /**
  *
  * @author Yumarx <jumarpolanco@gmail.com>
  */
-
 @AllArgsConstructor
-public class StringScoreParserImpl implements StringScoreParser{
+public class StringScoreParserImpl implements StringScoreParser {
+
     private String source;
 
     @Override
-    public List<Lane> parseScore(String source) {
+    public Map<String, List<String>> parseScore(String source) {
         this.setSource(source);
         return this.paseScore();
     }
@@ -40,8 +42,8 @@ public class StringScoreParserImpl implements StringScoreParser{
     }
 
     @Override
-    public List<Lane> paseScore() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Map<String, List<String>> paseScore() {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
-    
+
 }
