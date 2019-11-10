@@ -13,19 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.ypolanco.bowlingpal.service.scoreparser;
+package edu.ypolanco.bowlingpal.service.scorerule.tenpin.calculator;
 
-import edu.ypolanco.bowlingpal.model.Lane;
-import edu.ypolanco.bowlingpal.util.exception.InvalidScoreException;
+import edu.ypolanco.bowlingpal.model.Frame;
 import java.util.List;
-import java.util.Map;
 
 /**
  *
  * @author Yumarx <jumarpolanco@gmail.com>
  */
-public interface ScoreParser<T> {
-     public Map<String, List<String>> parseScore(T source) throws InvalidScoreException;
-     public void setSource(T source);
-     public Map<String, List<String>> parseScore() throws InvalidScoreException;
+public interface ScoreCalculator {
+    public int calculate(int index, List<Frame>frames);
+    
 }

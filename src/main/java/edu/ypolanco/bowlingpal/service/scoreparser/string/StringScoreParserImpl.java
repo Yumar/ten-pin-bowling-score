@@ -33,7 +33,7 @@ public class StringScoreParserImpl implements StringScoreParser {
     @Override
     public Map<String, List<String>> parseScore(String source) {
         this.setSource(source);
-        return this.paseScore();
+        return this.parseScore();
     }
 
     @Override
@@ -42,7 +42,7 @@ public class StringScoreParserImpl implements StringScoreParser {
     }
 
     @Override
-    public Map<String, List<String>> paseScore() {
+    public Map<String, List<String>> parseScore() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 

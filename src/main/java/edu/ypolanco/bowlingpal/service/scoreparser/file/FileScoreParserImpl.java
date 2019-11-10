@@ -15,7 +15,6 @@
  */
 package edu.ypolanco.bowlingpal.service.scoreparser.file;
 
-import com.sun.javafx.scene.control.skin.VirtualFlow;
 import edu.ypolanco.bowlingpal.util.exception.InvalidScoreException;
 import edu.ypolanco.bowlingpal.util.BowlingUtil;
 import java.io.BufferedReader;
@@ -28,7 +27,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 
 /**
@@ -43,7 +41,7 @@ public class FileScoreParserImpl implements FileScoreParser {
     @Override
     public Map<String, List<String>> parseScore(File source) throws InvalidScoreException {
         setSource(source);
-        return paseScore();
+        return parseScore();
     }
 
     @Override
@@ -52,7 +50,7 @@ public class FileScoreParserImpl implements FileScoreParser {
     }
 
     @Override
-    public Map<String, List<String>> paseScore() throws InvalidScoreException{
+    public Map<String, List<String>> parseScore() throws InvalidScoreException{
         Map<String, List<String>> score = null;
         try (BufferedReader reader
                 = new BufferedReader(new FileReader(source))) {
