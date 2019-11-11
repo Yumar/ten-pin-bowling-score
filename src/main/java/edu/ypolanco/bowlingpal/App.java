@@ -37,22 +37,40 @@ import java.util.logging.Logger;
  * @author Yumarx <jumarpolanco@gmail.com>
  */
 public class App {
+    
+    private BowlingUI ui;
+    private ScoreParser scoreParser;
+    private BowlingScoreRule rule;
+
+    public App(BowlingUI ui, BowlingScoreRule rule) {
+        this.ui = ui;
+        this.rule = rule;
+    }
+
+    public void run(){
+        try {
+            ScoreParserFactory parserFactory = new ScoreParserFactory();
+            Object source = this.ui.askForSource();
+            
+            this.scoreParser = parserFactory.createScoreParser(source);
+            List<Lane> lanes = this.rule
+                    .applyRule(this.scoreParser.parseScore());
+            
+            this.ui.displayScore(lanes);
+        } catch (NoParserFoundException | InvalidScoreException ex) {
+            this.ui.displayError(ex.getLocalizedMessage());
+        } 
+    }
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         BowlingUI ui = new BowlingCLI();
-        ScoreParser scoreParser = new FileScoreParserImpl();
         BowlingScoreRule rule = new TenPinBowlingRule();
-
-        try {
-            ui.init(scoreParser, rule);
-            ui.displayScore();
-        } catch(RuntimeException | InvalidScoreException ex){
-            System.out.println("An error occurred during application execurion: "+ ex.getMessage());
-            ex.printStackTrace();
-        }
+        App app = new App(ui, rule);
+        
+        app.run();
     }
 
 }
