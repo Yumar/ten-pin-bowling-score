@@ -25,14 +25,33 @@ import java.util.List;
  */
 public class StrikeScoreCalculator implements ScoreCalculator {
 
+    public static final int STRIKE_SCORE = 10;
+
     @Override
-    public int calculate(int index, List<Frame> frames) { //TODO: check this algorithm
-        int thisShoot = getShootPoints(frames.get(index).getShoots().get(0));
-        if ((index+1) < frames.size()) {
-            return thisShoot + calculate(index + 1, frames);            
+    public int calculate(int index, List<Frame> frames) { //TODO: check this algorithm 
+        Frame thisFrame = frames.get(index);
+        int thisShoot = getShootPoints(thisFrame.getShoots().get(0));
+        int secondShoot = 0;
+        int thirdShoot = 0;
+        int listSize = frames.size();
+
+        if (index == listSize - 1) {
+            secondShoot = getShootPoints(thisFrame.getShoots().get(1));
+            thirdShoot = getShootPoints(thisFrame.getShoots().get(2));
         } else {
-            return thisShoot;
+            Frame nextFrame = frames.get(index + 1);
+            secondShoot = getShootPoints(nextFrame.getShoots().get(0));
+            if (nextFrame.getShoots().size() > 1) {
+                thirdShoot = getShootPoints(nextFrame.getShoots().get(1));
+            } else {
+                if (!(index + 2 >= listSize)) {
+                    thirdShoot = getShootPoints(frames.get(index + 2).getShoots().get(0));
+                }
+            }
         }
+
+        return thisShoot + secondShoot + thirdShoot;
+
     }
 
 }

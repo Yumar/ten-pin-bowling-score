@@ -28,7 +28,8 @@ public class Frame {
         STRIKE,
         SPARE,
         OPEN,
-        DEFAULT
+        DEFAULT,
+        FOUL
     }
     private List<String> shoots;
     private Integer totalScore;

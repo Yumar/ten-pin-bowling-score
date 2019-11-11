@@ -34,7 +34,7 @@ public class LaneCLIDisplayer implements CLIDisplayer<List<Lane>> {
         
         StringBuilder titleBuilder = new StringBuilder("Frame");
         titleBuilder.append("\t");
-        for (int i = 1; i <= maxFrames+1; i++) {
+        for (int i = 1; i <= maxFrames; i++) {
             titleBuilder.append("\t");
             titleBuilder.append(i);
         }
@@ -44,7 +44,10 @@ public class LaneCLIDisplayer implements CLIDisplayer<List<Lane>> {
             stringLines.add(new StringBuilder(lane.getPlayerName()));
             StringBuilder pinfallsLine = new StringBuilder("Pinfalls\t");
             StringBuilder scoreLine = new StringBuilder("Score\t");
-            for (Frame frame : lane.getFrames()) {
+            int laneSize = lane.getFrames().size();
+            for (int i = 0; i < laneSize; i++) {
+                Frame frame = lane.getFrames().get(i);
+                
                 switch(frame.getFrameType()){
                     case OPEN:
                         pinfallsLine.append(frame.getShoots().get(0))
@@ -55,7 +58,18 @@ public class LaneCLIDisplayer implements CLIDisplayer<List<Lane>> {
                                 .append(" /");
                         break;
                     case STRIKE:
-                        pinfallsLine.append("X  ");
+                        if(i == laneSize-1){
+                            pinfallsLine.append("X ")
+                                    .append(maskStrike(frame.getShoots().get(1)))
+                                    .append(" ")
+                                    .append(maskStrike(frame.getShoots().get(2)))
+                                    .append(" ");
+                        } else {
+                            pinfallsLine.append("X  ");
+                        }                        
+                        break;
+                    case FOUL:
+                        pinfallsLine.append("F  ");
                         break;
                     default:
                         pinfallsLine.append(frame.getShoots().get(0))
@@ -77,6 +91,10 @@ public class LaneCLIDisplayer implements CLIDisplayer<List<Lane>> {
         return lanes.stream()
                 .mapToInt(v -> v.getFrames().size())
                 .max().orElseThrow(NoSuchElementException::new);
+    }
+    
+    private String maskStrike(String score){
+        return score.equals("10")? "X " : score.toString();
     }
 
 }

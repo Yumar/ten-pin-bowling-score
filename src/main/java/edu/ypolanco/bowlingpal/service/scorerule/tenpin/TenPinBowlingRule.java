@@ -62,20 +62,26 @@ public class TenPinBowlingRule implements BowlingScoreRule {
 
     private List<Frame> calculateShoots(List<String> stringList) throws InvalidScoreException {
         List<Frame> frames = new ArrayList<>();
-        for (int i = 0; stringList.size() > i + 1; i = i++) {
+        for (int i = 0; i+1 < stringList.size(); i++) {
             Frame frame = new Frame();
             List<String> shoots = new ArrayList<>();//validate strike doesnt have second shoot
-            if (validateShoot(stringList.get(i)) && 
-                    ("F".equals(stringList.get(i)) || 
-                    Integer.parseInt(stringList.get(i)) == getNumberOfPins())) 
-            { //verifies if is the last frame
+            if (i == (stringList.size() - 3) && 
+                    Integer.parseInt(stringList.get(i)) == getNumberOfPins()) {
+                shoots.add(stringList.get(i));
+                shoots.add(stringList.get(i + 1));
+                shoots.add(stringList.get(i + 2));
+                frame.setShoots(shoots);
+                i++; i++;
+            } else if (validateShoot(stringList.get(i)) && !stringList.get(i).equals("F")
+                    && Integer.parseInt(stringList.get(i)) == getNumberOfPins()) {
                 shoots.add(stringList.get(i));
                 frame.setShoots(shoots);
             } else if (validateShoot(stringList.get(i)) && validateShoot(stringList.get(i + 1))) {
                 shoots.add(stringList.get(i));
                 shoots.add(stringList.get(i + 1));
                 frame.setShoots(shoots);
-            }
+                i++;
+            }  
             frames.add(frame);
         }
         return frames;
@@ -92,10 +98,11 @@ public class TenPinBowlingRule implements BowlingScoreRule {
     }
 
     private List<Frame> calculateTotals(List<Frame> frames) {
+        int scoreTotalSum = 0;
         for (int i = 0; i < frames.size(); i++) {
             ScoreCalculator calculator = null;
             int thisShoot = getShootPoints(frames.get(i).getShoots().get(0));
-            int secondShoot = frames.get(i).getShoots().size() > 1?  getShootPoints(frames.get(i).getShoots().get(1)) : 0;
+            int secondShoot = frames.get(i).getShoots().size() > 1 ? getShootPoints(frames.get(i).getShoots().get(1)) : 0;
             if (thisShoot == getNumberOfPins()) {
                 frames.get(i).setFrameType(Frame.Type.STRIKE);
                 calculator = new StrikeScoreCalculator();
@@ -109,7 +116,8 @@ public class TenPinBowlingRule implements BowlingScoreRule {
                 frames.get(i).setFrameType(Frame.Type.DEFAULT);
                 calculator = new DefaultScoreCalculator();
             }
-            frames.get(i).setTotalScore(calculator.calculate(i, frames));
+            scoreTotalSum += calculator.calculate(i, frames);
+            frames.get(i).setTotalScore(scoreTotalSum);
         }
         return frames;
     }
