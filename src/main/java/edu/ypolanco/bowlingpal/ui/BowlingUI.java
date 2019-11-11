@@ -15,15 +15,16 @@
  */
 package edu.ypolanco.bowlingpal.ui;
 
-import edu.ypolanco.bowlingpal.service.scoreparser.ScoreParser;
-import edu.ypolanco.bowlingpal.service.scorerule.BowlingScoreRule;
+import edu.ypolanco.bowlingpal.model.Lane;
 import edu.ypolanco.bowlingpal.util.exception.InvalidScoreException;
+import java.util.List;
 
 /**
  *
  * @author Yumarx <jumarpolanco@gmail.com>
  */
 public interface BowlingUI {
-    public void init(ScoreParser parser, BowlingScoreRule rule) throws RuntimeException;
-    public void displayScore() throws InvalidScoreException;
+    public Object askForSource() throws RuntimeException;
+    public void displayScore(List<Lane> lanes) throws InvalidScoreException;
+    public void displayError(String errorMessage);
 }

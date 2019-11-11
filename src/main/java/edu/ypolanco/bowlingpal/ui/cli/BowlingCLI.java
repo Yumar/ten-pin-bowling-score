@@ -16,8 +16,6 @@
 package edu.ypolanco.bowlingpal.ui.cli;
 
 import edu.ypolanco.bowlingpal.model.Lane;
-import edu.ypolanco.bowlingpal.service.scoreparser.ScoreParser;
-import edu.ypolanco.bowlingpal.service.scorerule.BowlingScoreRule;
 import edu.ypolanco.bowlingpal.ui.BowlingUI;
 import edu.ypolanco.bowlingpal.ui.Displayer;
 import edu.ypolanco.bowlingpal.ui.cli.displayer.LaneCLIDisplayer;
@@ -26,47 +24,42 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
  * @author Yumarx <jumarpolanco@gmail.com>
  */
-public class BowlingCLI implements BowlingUI{
-    private ScoreParser scoreParser;
-    private BowlingScoreRule bowlingRule;
+public class BowlingCLI implements BowlingUI {
 
     @Override
-    public void init(ScoreParser parser, BowlingScoreRule rule) throws RuntimeException{
-        this.bowlingRule = rule;
-        this.scoreParser = parser;
-        
+    public void displayScore(List<Lane> lanes) throws InvalidScoreException {
+        Displayer<List<Lane>> scoreDisplayer = new LaneCLIDisplayer();
+        scoreDisplayer.display(lanes);
+    }
+
+    private File askForFilePath() throws FileNotFoundException {
+        File file = null;
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Please enter score file path...");
+        file = new File(scanner.nextLine());
+        if (file.exists() && !file.isDirectory()) {
+            return file;
+        }
+        throw new FileNotFoundException("No file found for the provided path");
+    }
+
+    @Override
+    public Object askForSource() throws RuntimeException {
         try {
-            parser.setSource(askForFilePath());
+            return askForFilePath();
         } catch (FileNotFoundException ex) {
             throw new RuntimeException(ex);
         }
     }
 
     @Override
-    public void displayScore() throws InvalidScoreException{
-        Displayer<List<Lane>> scoreDisplayer = new LaneCLIDisplayer();
-        List<Lane> lanes = this.bowlingRule
-                .applyRule(this.scoreParser.parseScore());
-        
-        scoreDisplayer.display(lanes);
+    public void displayError(String errorMessage) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    private File askForFilePath() throws FileNotFoundException{
-        File file = null;
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Please enter score file path...");
-        file = new File(scanner.nextLine());
-        if(file.exists() && !file.isDirectory()){
-            return file;
-        }
-        throw new FileNotFoundException("No file found for the provided path");
-    }
-    
+
 }
