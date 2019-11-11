@@ -28,12 +28,14 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 /**
  *
  * @author Yumarx <jumarpolanco@gmail.com>
  */
 @AllArgsConstructor
+@NoArgsConstructor
 public class FileScoreParserImpl implements FileScoreParser {
 
     private File source;
