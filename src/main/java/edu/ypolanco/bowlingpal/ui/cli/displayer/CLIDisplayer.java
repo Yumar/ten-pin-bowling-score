@@ -13,27 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.ypolanco.bowlingpal.model;
+package edu.ypolanco.bowlingpal.ui.cli.displayer;
 
-import java.util.List;
-import lombok.Data;
+import edu.ypolanco.bowlingpal.ui.Displayer;
 
 /**
  *
  * @author Yumarx <jumarpolanco@gmail.com>
  */
-@Data
-public class Frame {
-    public enum Type{
-        STRIKE,
-        SPARE,
-        OPEN,
-        DEFAULT
-    }
-    private List<String> shoots;
-    private Integer totalScore;
-    private Type frameType;
-    
-    
+public interface CLIDisplayer<T> extends Displayer<T>{
     
 }

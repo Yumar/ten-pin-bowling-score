@@ -62,7 +62,7 @@ public class TenPinBowlingRule implements BowlingScoreRule {
 
     private List<Frame> calculateShoots(List<String> stringList) throws InvalidScoreException {
         List<Frame> frames = new ArrayList<>();
-        for (int i = 0; stringList.size() > i + 1; i = i + 2) {
+        for (int i = 0; stringList.size() > i + 1; i = i++) {
             Frame frame = new Frame();
             List<String> shoots = new ArrayList<>();//validate strike doesnt have second shoot
             if (validateShoot(stringList.get(i)) && 
@@ -106,6 +106,7 @@ public class TenPinBowlingRule implements BowlingScoreRule {
                 frames.get(i).setFrameType(Frame.Type.OPEN);
                 calculator = new OpenScoreCalculator();
             } else {
+                frames.get(i).setFrameType(Frame.Type.DEFAULT);
                 calculator = new DefaultScoreCalculator();
             }
             frames.get(i).setTotalScore(calculator.calculate(i, frames));

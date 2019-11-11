@@ -13,27 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package edu.ypolanco.bowlingpal.model;
+package edu.ypolanco.bowlingpal.ui;
 
-import java.util.List;
-import lombok.Data;
+import edu.ypolanco.bowlingpal.service.scoreparser.ScoreParser;
+import edu.ypolanco.bowlingpal.service.scorerule.BowlingScoreRule;
+import edu.ypolanco.bowlingpal.util.exception.InvalidScoreException;
 
 /**
  *
  * @author Yumarx <jumarpolanco@gmail.com>
  */
-@Data
-public class Frame {
-    public enum Type{
-        STRIKE,
-        SPARE,
-        OPEN,
-        DEFAULT
-    }
-    private List<String> shoots;
-    private Integer totalScore;
-    private Type frameType;
-    
-    
-    
+public interface BowlingUI {
+    public void init(ScoreParser parser, BowlingScoreRule rule) throws RuntimeException;
+    public void displayScore() throws InvalidScoreException;
 }
