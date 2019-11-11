@@ -70,8 +70,11 @@ public class FileScoreParserImpl implements FileScoreParser {
         Map<String, List<String>> result = new HashMap<>();
         
         while ((line = reader.readLine()) != null) {
-            String[] lineArr = line.split(" ");
-            if(!BowlingUtil.isValidScore(lineArr[1])) throw new InvalidScoreException("Score format is invalid");
+            String[] lineArr = line.split("\\s+");
+            if(lineArr.length < 2) throw new InvalidScoreException("Score format is invalid");
+            else if (!BowlingUtil.isValidScore(lineArr[1])) {
+                throw new InvalidScoreException("Score format is invalid");
+            }
             
             List<String> scoreList = result.get(lineArr[0]);            
             if(scoreList!=null){

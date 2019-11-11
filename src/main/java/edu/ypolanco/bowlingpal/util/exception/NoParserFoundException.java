@@ -23,5 +23,12 @@ public class NoParserFoundException extends Exception {
 
     public NoParserFoundException() {
     }
+
+    @Override
+    public String getLocalizedMessage() {
+        return "No parser found for this source";
+    }
+    
+    
     
 }

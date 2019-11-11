@@ -57,7 +57,7 @@ public class App {
                     .applyRule(this.scoreParser.parseScore());
             
             this.ui.displayScore(lanes);
-        } catch (NoParserFoundException | InvalidScoreException ex) {
+        } catch (NoParserFoundException | InvalidScoreException | RuntimeException ex) {
             this.ui.displayError(ex.getLocalizedMessage());
         } 
     }
