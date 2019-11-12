@@ -33,6 +33,7 @@ public class AppTest {
 
     private final PrintStream originalOut = System.out;
     private final InputStream originalIn = System.in;
+    private final String breakLine = System.lineSeparator();
 
     public AppTest() {
     }
@@ -45,14 +46,14 @@ public class AppTest {
 
     @Test
     public void testValid() throws IOException {
-        String expOutput = "Please enter score file path...\n"
-                + "Frame		1	2	3	4	5	6	7	8	9	10\n"
-                + "Jeff\n"
-                + "Pinfalls	X  	7 /	9 -	X  	0 8	8 /	F 6	X  	X  	X 8 1 	\n"
-                + "Score		20	39	48	66	74	84	90	120	148	167\n"
-                + "John\n"
-                + "Pinfalls	3 /	6 3	X  	8 1	X  	X  	9 -	7 /	4 4	X 9 0 	\n"
-                + "Score		16	25	44	53	82	101	110	124	132	151";
+        String expOutput = "Please enter score file path..."+breakLine
+                + "Frame		1	2	3	4	5	6	7	8	9	10"+breakLine
+                + "Jeff"+breakLine
+                + "Pinfalls	X  	7 /	9 -	X  	0 8	8 /	F 6	X  	X  	X 8 1 	"+breakLine
+                + "Score		20	39	48	66	74	84	90	120	148	167"+breakLine
+                + "John"+breakLine
+                + "Pinfalls	3 /	6 3	X  	8 1	X  	X  	9 -	7 /	4 4	X 9 0 	"+breakLine
+                + "Score		16	25	44	53	82	101	110	124	132	151"+breakLine;
 
         String input = "valid.txt";
         InputStream in = new ByteArrayInputStream(input.getBytes());
@@ -68,11 +69,11 @@ public class AppTest {
 
     @Test
     public void testZeros() throws IOException {
-        String expOutput = "Please enter score file path...\n"
-                + "Frame		1	2	3	4	5	6	7	8	9	10\n"
-                + "John\n"
-                + "Pinfalls	0 -	0 -	0 -	0 -	0 -	0 -	0 -	0 -	0 -	0 -	\n"
-                + "Score		0	0	0	0	0	0	0	0	0	0";
+        String expOutput = "Please enter score file path..."+breakLine
+                + "Frame		1	2	3	4	5	6	7	8	9	10"+breakLine
+                + "John"+breakLine
+                + "Pinfalls	0 -	0 -	0 -	0 -	0 -	0 -	0 -	0 -	0 -	0 -	"+breakLine
+                + "Score		0	0	0	0	0	0	0	0	0	0"+breakLine;
 
         String input = "zeros.txt";
         InputStream in = new ByteArrayInputStream(input.getBytes());
@@ -82,17 +83,17 @@ public class AppTest {
         System.setIn(in);
         App.main(null);
         out.flush();
-
+        
         assertEquals(expOutput, out.toString());
     }
 
     @Test
     public void testPerfect() throws IOException {
-        String expOutput = "Please enter score file path...\n"
-                + "Frame		1	2	3	4	5	6	7	8	9	10\n"
-                + "Carl\n"
-                + "Pinfalls	X  	X  	X  	X  	X  	X  	X  	X  	X  	X X  X  	\n"
-                + "Score		30	60	90	120	150	180	210	240	270	300";
+        String expOutput = "Please enter score file path..."+breakLine
+                + "Frame		1	2	3	4	5	6	7	8	9	10"+breakLine
+                + "Carl"+breakLine
+                + "Pinfalls	X  	X  	X  	X  	X  	X  	X  	X  	X  	X X  X  	"+breakLine
+                + "Score		30	60	90	120	150	180	210	240	270	300"+breakLine;
 
         String input = "perfect.txt";
         InputStream in = new ByteArrayInputStream(input.getBytes());
