@@ -15,22 +15,16 @@
  */
 package edu.ypolanco.bowlingpal;
 
-import edu.ypolanco.bowlingpal.model.Frame;
 import edu.ypolanco.bowlingpal.model.Lane;
 import edu.ypolanco.bowlingpal.service.scoreparser.ScoreParser;
 import edu.ypolanco.bowlingpal.service.scoreparser.ScoreParserFactory;
-import edu.ypolanco.bowlingpal.service.scoreparser.file.FileScoreParserImpl;
 import edu.ypolanco.bowlingpal.service.scorerule.BowlingScoreRule;
 import edu.ypolanco.bowlingpal.service.scorerule.tenpin.TenPinBowlingRule;
 import edu.ypolanco.bowlingpal.ui.BowlingUI;
 import edu.ypolanco.bowlingpal.ui.cli.BowlingCLI;
 import edu.ypolanco.bowlingpal.util.exception.InvalidScoreException;
 import edu.ypolanco.bowlingpal.util.exception.NoParserFoundException;
-import java.io.File;
 import java.util.List;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -57,7 +51,7 @@ public class App {
                     .applyRule(this.scoreParser.parseScore());
             
             this.ui.displayScore(lanes);
-        } catch (NoParserFoundException | InvalidScoreException ex) {
+        } catch (NoParserFoundException | InvalidScoreException | RuntimeException ex) {
             this.ui.displayError(ex.getLocalizedMessage());
         } 
     }

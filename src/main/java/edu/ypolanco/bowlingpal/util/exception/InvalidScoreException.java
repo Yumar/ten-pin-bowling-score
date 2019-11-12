@@ -20,8 +20,14 @@ package edu.ypolanco.bowlingpal.util.exception;
  * @author Yumarx <jumarpolanco@gmail.com>
  */
 public class InvalidScoreException extends Exception {
-
-    public InvalidScoreException(String score_format_is_invalid) {
-    }
+    private String message;
     
+    public InvalidScoreException(String score_format_is_invalid) {        
+        this.message = "Invalid score: "+score_format_is_invalid;
+    }
+
+    @Override
+    public String getLocalizedMessage() {
+        return this.message;
+    }
 }

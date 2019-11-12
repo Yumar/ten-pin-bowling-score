@@ -15,8 +15,6 @@
  */
 package edu.ypolanco.bowlingpal.service.scoreparser.string;
 
-import edu.ypolanco.bowlingpal.model.Lane;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import lombok.AllArgsConstructor;

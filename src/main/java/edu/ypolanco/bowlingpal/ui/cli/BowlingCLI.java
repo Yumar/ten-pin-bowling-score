@@ -59,7 +59,7 @@ public class BowlingCLI implements BowlingUI {
 
     @Override
     public void displayError(String errorMessage) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println("An error occurred: "+errorMessage);
     }
 
 }
